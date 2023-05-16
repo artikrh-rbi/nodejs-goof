@@ -12,6 +12,7 @@ jobs:
       - run: uname -a
       - run: env
   owasp-zap:
+    needs: appsecil # Create a dependency of another runner which has to be finished
     runs-on: ubuntu-latest # Deploy another VM
     permissions:
       issues: write
