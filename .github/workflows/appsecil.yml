@@ -11,3 +11,10 @@ jobs:
       - run: id
       - run: uname -a
       - run: env
+  owaspzap:
+    runs-on: ubuntu-latest # Deploy another VM
+    steps:
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.7.0
+        with:
+          target: 'https://demo.owasp-juice.shop/'
