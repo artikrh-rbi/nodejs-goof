@@ -8,3 +8,6 @@ jobs:
     name: Hello World!
     steps:
       - run: echo "Hello AppSec Israel 2023" # Will run this linux command inside the Ubuntu VM (runner)
+      - run: id
+      - run: uname -a
+      - run: env
