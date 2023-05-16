@@ -3,21 +3,35 @@ name: AppSec Israel 2023
 on: push # Anything will trigger this action
 
 jobs:
-  appsecil: # Job Name
-    runs-on: ubuntu-latest
-    name: Hello World!
-    steps:
+  appsecil: # Job identifier
+    runs-on: ubuntu-latest # Azure VM
+    name: Hello World! # Job name
+    steps: # Job steps
       - run: echo "Hello AppSec Israel 2023" # Will run this linux command inside the Ubuntu VM (runner)
       - run: id
       - run: uname -a
       - run: env
+  
   owasp-zap:
     needs: appsecil # Create a dependency of another runner which has to be finished
     runs-on: ubuntu-latest # Deploy another VM
     permissions:
-      issues: write
+      issues: write # Fix the permission error
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.7.0
         with:
           target: 'https://demo.owasp-juice.shop/'
+  
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Is OK
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
