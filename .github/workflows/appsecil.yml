@@ -1,0 +1,10 @@
+name: AppSec Israel 2023
+
+on: push # Anything will trigger this action
+
+jobs:
+  appsecil: # Job Name
+    runs-on: ubuntu-latest
+    name: Hello World!
+    steps:
+      - run: echo "Hello AppSec Israel 2023" # Will run this linux command inside the Ubuntu VM (runner)
